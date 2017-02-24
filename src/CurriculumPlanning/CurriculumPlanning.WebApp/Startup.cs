@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using CurriculumPlanning.Shared.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CurriculumPlanning.WebApp
 {
@@ -29,6 +31,11 @@ namespace CurriculumPlanning.WebApp
         {
             // Add framework services.
             services.AddMvc();
+
+            // Add the EF database context.
+            // TODO Move the database connection string to a configuration file.
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=CurriculumPlanning;Trusted_Connection=True;";
+            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
