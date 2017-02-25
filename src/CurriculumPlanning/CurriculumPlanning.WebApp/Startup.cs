@@ -39,7 +39,8 @@ namespace CurriculumPlanning.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, IServiceScopeFactory serviceScopeFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -51,6 +52,13 @@ namespace CurriculumPlanning.WebApp
                 // Browser Link is not compatible with Kestrel 1.1.0
                 // For details on enabling Browser Link, see https://go.microsoft.com/fwlink/?linkid=840936
                 // app.UseBrowserLink();
+
+                using (var scope = serviceScopeFactory.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetService<Context>();
+                    context.Database.Migrate();
+                    context.EnsureSeedData();
+                }
             }
             else
             {
