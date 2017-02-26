@@ -38,24 +38,6 @@ namespace CurriculumPlanning.Shared.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("CurriculumPlanning.Shared.Models.CourseInstructor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CourseId");
-
-                    b.Property<int>("InstructorId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("InstructorId");
-
-                    b.ToTable("CourseInstructors");
-                });
-
             modelBuilder.Entity("CurriculumPlanning.Shared.Models.CourseSkill", b =>
                 {
                     b.Property<int>("Id")
@@ -78,6 +60,24 @@ namespace CurriculumPlanning.Shared.Migrations
                     b.ToTable("CourseSkills");
                 });
 
+            modelBuilder.Entity("CurriculumPlanning.Shared.Models.CourseTeacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<int>("TeacherId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("CourseTeachers");
+                });
+
             modelBuilder.Entity("CurriculumPlanning.Shared.Models.Coverage", b =>
                 {
                     b.Property<int>("Id")
@@ -90,24 +90,6 @@ namespace CurriculumPlanning.Shared.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Coverages");
-                });
-
-            modelBuilder.Entity("CurriculumPlanning.Shared.Models.Instructor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(30);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Instructors");
                 });
 
             modelBuilder.Entity("CurriculumPlanning.Shared.Models.Level", b =>
@@ -129,11 +111,15 @@ namespace CurriculumPlanning.Shared.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Comments");
+
                     b.Property<int>("LevelId");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<bool>("OutOfScope");
 
                     b.Property<int>("SubjectId");
 
@@ -155,9 +141,31 @@ namespace CurriculumPlanning.Shared.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<int>("TopicId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("TopicId");
+
                     b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("CurriculumPlanning.Shared.Models.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("CurriculumPlanning.Shared.Models.Topic", b =>
@@ -203,18 +211,6 @@ namespace CurriculumPlanning.Shared.Migrations
                         .HasForeignKey("TopicId");
                 });
 
-            modelBuilder.Entity("CurriculumPlanning.Shared.Models.CourseInstructor", b =>
-                {
-                    b.HasOne("CurriculumPlanning.Shared.Models.Course", "Course")
-                        .WithMany("Instructors")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CurriculumPlanning.Shared.Models.Instructor", "Instructor")
-                        .WithMany("Courses")
-                        .HasForeignKey("InstructorId");
-                });
-
             modelBuilder.Entity("CurriculumPlanning.Shared.Models.CourseSkill", b =>
                 {
                     b.HasOne("CurriculumPlanning.Shared.Models.Course", "Course")
@@ -231,6 +227,18 @@ namespace CurriculumPlanning.Shared.Migrations
                         .HasForeignKey("SkillId");
                 });
 
+            modelBuilder.Entity("CurriculumPlanning.Shared.Models.CourseTeacher", b =>
+                {
+                    b.HasOne("CurriculumPlanning.Shared.Models.Course", "Course")
+                        .WithMany("Teachers")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CurriculumPlanning.Shared.Models.Teacher", "Teacher")
+                        .WithMany("Courses")
+                        .HasForeignKey("TeacherId");
+                });
+
             modelBuilder.Entity("CurriculumPlanning.Shared.Models.Skill", b =>
                 {
                     b.HasOne("CurriculumPlanning.Shared.Models.Level", "Level")
@@ -240,6 +248,14 @@ namespace CurriculumPlanning.Shared.Migrations
                     b.HasOne("CurriculumPlanning.Shared.Models.Subject", "Subject")
                         .WithMany("Skills")
                         .HasForeignKey("SubjectId");
+                });
+
+            modelBuilder.Entity("CurriculumPlanning.Shared.Models.Subject", b =>
+                {
+                    b.HasOne("CurriculumPlanning.Shared.Models.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

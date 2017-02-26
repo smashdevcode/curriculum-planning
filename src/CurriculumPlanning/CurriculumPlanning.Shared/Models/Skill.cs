@@ -17,6 +17,8 @@ namespace CurriculumPlanning.Shared.Models
         public int LevelId { get; set; }
         [Required, StringLength(100)]
         public string Name { get; set; }
+        public string Comments { get; set; }
+        public bool OutOfScope { get; set; }
 
         public Subject Subject { get; set; }
         public Level Level { get; set; }

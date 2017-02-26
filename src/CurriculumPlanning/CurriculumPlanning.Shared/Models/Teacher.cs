@@ -5,11 +5,11 @@ using System.Text;
 
 namespace CurriculumPlanning.Shared.Models
 {
-    public class Instructor
+    public class Teacher
     {
-        public Instructor()
+        public Teacher()
         {
-            Courses = new List<CourseInstructor>();
+            Courses = new List<CourseTeacher>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace CurriculumPlanning.Shared.Models
         [Required, StringLength(50)]
         public string LastName { get; set; }
 
-        public IList<CourseInstructor> Courses { get; set; }
+        public IList<CourseTeacher> Courses { get; set; }
     }
 }

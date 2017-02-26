@@ -13,9 +13,11 @@ namespace CurriculumPlanning.Shared.Models
         }
 
         public int Id { get; set; }
+        public int TopicId { get; set; }
         [Required, StringLength(100)]
         public string Name { get; set; }
 
+        public Topic Topic { get; set; }
         public IList<Skill> Skills { get; set; }
     }
 }
