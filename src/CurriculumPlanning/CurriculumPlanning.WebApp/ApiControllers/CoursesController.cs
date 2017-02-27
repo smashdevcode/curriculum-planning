@@ -26,14 +26,15 @@ namespace CurriculumPlanning.WebApp.ApiControllers
                 .Include(c => c.Level)
                 .Include(c => c.Teachers)
                     .ThenInclude(ct => ct.Teacher)
-                .Include(c => c.Skills)
-                    .ThenInclude(cs => cs.Skill)
-                        .ThenInclude(s => s.Subject)
-                .Include(c => c.Skills)
-                    .ThenInclude(cs => cs.Skill)
-                        .ThenInclude(s => s.Level)
-                .Include(c => c.Skills)
-                    .ThenInclude(cs => cs.Coverage)
+                //.Include(c => c.Skills)
+                //    .ThenInclude(cs => cs.Skill)
+                //        .ThenInclude(s => s.Subject)
+                //.Include(c => c.Skills)
+                //    .ThenInclude(cs => cs.Skill)
+                //        .ThenInclude(s => s.Level)
+                //.Include(c => c.Skills)
+                //    .ThenInclude(cs => cs.Coverage)
+                .OrderBy(c => c.Title)
                 .ToList();
 
             return Ok(courses);

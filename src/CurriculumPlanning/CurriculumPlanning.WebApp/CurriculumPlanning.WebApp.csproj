@@ -27,4 +27,8 @@
     <ProjectReference Include="..\CurriculumPlanning.Shared\CurriculumPlanning.Shared.csproj" />
   </ItemGroup>
 
+  <Target Name="PreCompileTarget" BeforeTargets="Build">
+    <Exec Command="webpack" />
+  </Target>
+  
 </Project>
