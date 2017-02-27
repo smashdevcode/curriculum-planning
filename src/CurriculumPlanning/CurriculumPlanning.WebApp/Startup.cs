@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CurriculumPlanning.Shared.Data;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 
 namespace CurriculumPlanning.WebApp
 {
@@ -31,6 +32,20 @@ namespace CurriculumPlanning.WebApp
         {
             // Add framework services.
             services.AddMvc();
+
+            //services.AddMvc()
+            //    .AddJsonOptions(options =>
+            //    {
+            //        options.SerializerSettings.ReferenceLoopHandling = 
+            //            Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            //        //var resolver = options.SerializerSettings.ContractResolver;
+            //        //if (resolver != null)
+            //        //{
+            //        //    var res = resolver as DefaultContractResolver;
+            //        //    res.NamingStrategy = null;
+            //        //}
+            //    });
 
             // Add the EF database context.
             // TODO Move the database connection string to a configuration file.

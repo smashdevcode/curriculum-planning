@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace CurriculumPlanning.Shared.Models
         public int CourseId { get; set; }
         public int TeacherId { get; set; }
 
+        [JsonIgnore]
         public Course Course { get; set; }
         public Teacher Teacher { get; set; }
     }

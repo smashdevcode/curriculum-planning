@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,6 +12,7 @@ namespace CurriculumPlanning.Shared.Models
         public int SkillId { get; set; }
         public int CoverageId { get; set; }
 
+        [JsonIgnore]
         public Course Course { get; set; }
         public Skill Skill { get; set; }
         public Coverage Coverage { get; set; }

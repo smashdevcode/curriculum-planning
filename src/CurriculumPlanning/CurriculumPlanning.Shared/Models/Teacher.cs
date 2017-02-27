@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -18,6 +19,7 @@ namespace CurriculumPlanning.Shared.Models
         [Required, StringLength(50)]
         public string LastName { get; set; }
 
+        [JsonIgnore]
         public IList<CourseTeacher> Courses { get; set; }
     }
 }
