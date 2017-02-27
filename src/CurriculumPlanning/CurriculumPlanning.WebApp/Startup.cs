@@ -80,6 +80,19 @@ namespace CurriculumPlanning.WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.Use(async (context, next) => {
+                // TODO Add other client-side routes.
+                if (context.Request.Path == "/courses" || 
+                    context.Request.Path == "/skills" ||
+                    context.Request.Path == "/teachers" ||
+                    context.Request.Path == "/topics")
+                {
+                    context.Request.Path = "/index.html";
+                }
+                await next.Invoke();
+            });
+
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
